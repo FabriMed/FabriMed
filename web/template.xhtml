@@ -11,13 +11,14 @@
         <h:outputScript library="scripts" name="pfcrud.js"/>
     </h:head>
 
-    <h:body>
+    <h:body style="background: url(http://localhost:8080/FabriMed/resources/images/background.png)">
 
         <p:growl id="growl" life="3000"/>
-
+        <ui:include src="/appmenu.xhtml"/>
+        <ui:insert name="body"/>
+        <!--
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="100" header="#{myBundle.AppName}">
-                <!-- Menu here. Also a layout and a way to log a user out -->
                 <ui:include src="/appmenu.xhtml"/>
             </p:layoutUnit>
 
@@ -30,7 +31,7 @@
             </p:layoutUnit>
 
         </p:layout>
-
+        -->
     </h:body>
 
 </html>

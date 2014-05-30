@@ -11,13 +11,13 @@
     </ui:define>
 
     <ui:define name="body">
-
-        <ui:include src="/cotizacion/List.xhtml"/>
-        <ui:include src="/cotizacion/View.xhtml"/>
-        <ui:include src="/cotizacion/Edit.xhtml"/>
-        <ui:include src="/cotizacion/Create.xhtml"/>
-        <ui:include src="/motivo/View.xhtml"/>
-
+        <p:dialog visible="true" maximizable="true">
+            <ui:include src="/cotizacion/List.xhtml"/>
+            <ui:include src="/cotizacion/View.xhtml"/>
+            <ui:include src="/cotizacion/Edit.xhtml"/>
+            <ui:include src="/cotizacion/Create.xhtml"/>
+            <ui:include src="/motivo/View.xhtml"/>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

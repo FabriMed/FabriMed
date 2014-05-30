@@ -11,14 +11,14 @@
     </ui:define>
 
     <ui:define name="body">
-
-        <ui:include src="/detallecotizacion/List.xhtml"/>
-        <ui:include src="/detallecotizacion/View.xhtml"/>
-        <ui:include src="/detallecotizacion/Edit.xhtml"/>
-        <ui:include src="/detallecotizacion/Create.xhtml"/>
-        <ui:include src="/producto/View.xhtml"/>
-        <ui:include src="/cotizacion/View.xhtml"/>
-
+        <p:dialog visible="true" maximizable="true">
+            <ui:include src="/detallecotizacion/List.xhtml"/>
+            <ui:include src="/detallecotizacion/View.xhtml"/>
+            <ui:include src="/detallecotizacion/Edit.xhtml"/>
+            <ui:include src="/detallecotizacion/Create.xhtml"/>
+            <ui:include src="/producto/View.xhtml"/>
+            <ui:include src="/cotizacion/View.xhtml"/>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

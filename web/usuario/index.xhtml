@@ -11,12 +11,12 @@
     </ui:define>
 
     <ui:define name="body">
-
-        <ui:include src="/usuario/List.xhtml"/>
-        <ui:include src="/usuario/View.xhtml"/>
-        <ui:include src="/usuario/Edit.xhtml"/>
-        <ui:include src="/usuario/Create.xhtml"/>
-
+        <p:dialog visible="true" maximizable="true">
+            <ui:include src="/usuario/List.xhtml"/>
+            <ui:include src="/usuario/View.xhtml"/>
+            <ui:include src="/usuario/Edit.xhtml"/>
+            <ui:include src="/usuario/Create.xhtml"/>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>
