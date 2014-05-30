@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CotizacionListForm">
+
+        <p:panel header="#{myBundle.ListCotizacionTitle}">
+            <p:contextMenu id="CotizacionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CotizacionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CotizacionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CotizacionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CotizacionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CotizacionMenuItem_idMotivo}" icon="ui-icon-search"  actionListener="#{cotizacionController.prepareIdMotivo}" update=":MotivoViewForm" oncomplete="MotivoViewDialog.show()" disabled="#{empty cotizacionController.selected.idMotivo}"/>  
+                <p:menuitem value="#{myBundle.CotizacionMenuItem_detallecotizacionList}" icon="ui-icon-search"  action="#{cotizacionController.navigateDetallecotizacionList}" disabled="#{empty cotizacionController.selected.detallecotizacionList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{cotizacionController.items}"
+                         var="item"
+                         rowKey="#{item.idCotizacion}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cotizacionController.selected}">
+
+                <p:ajax event="rowSelect"   update=":CotizacionListForm:createButton :CotizacionListForm:viewButton :CotizacionListForm:editButton :CotizacionListForm:deleteButton :CotizacionListForm:CotizacionDataTableContextMenu" listener="#{cotizacionController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":CotizacionListForm:createButton :CotizacionListForm:viewButton :CotizacionListForm:editButton :CotizacionListForm:deleteButton :CotizacionListForm:CotizacionDataTableContextMenu" listener="#{cotizacionController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CotizacionListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idCotizacion}" filterBy="#{item.idCotizacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_idCotizacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCotizacion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cotiNombre}" filterBy="#{item.cotiNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_cotiNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cotiNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cotiApellido}" filterBy="#{item.cotiApellido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_cotiApellido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cotiApellido}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cotiEmail}" filterBy="#{item.cotiEmail}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_cotiEmail}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cotiEmail}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cotiTelefono}" filterBy="#{item.cotiTelefono}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_cotiTelefono}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cotiTelefono}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cotiObservaciones}" filterBy="#{item.cotiObservaciones}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_cotiObservaciones}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cotiObservaciones}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cotiEspecificaciones}" filterBy="#{item.cotiEspecificaciones}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_cotiEspecificaciones}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cotiEspecificaciones}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cotiFecha}" filterBy="#{item.cotiFecha}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_cotiFecha}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cotiFecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idMotivo.idMotivo}" filterBy="#{item.idMotivo.idMotivo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCotizacionTitle_idMotivo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idMotivo.idMotivo}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{cotizacionController.prepareCreate}" update=":CotizacionCreateForm" oncomplete="CotizacionCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CotizacionViewForm" oncomplete="CotizacionViewDialog.show()" disabled="#{empty cotizacionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CotizacionEditForm" oncomplete="CotizacionEditDialog.show()" disabled="#{empty cotizacionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{cotizacionController.delete}" update=":growl,datalist" disabled="#{empty cotizacionController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

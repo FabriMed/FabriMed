@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.idUsuario}" title="#{myBundle.ViewUsuarioTitle_idUsuario}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaCuenta}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaCuenta}" title="#{myBundle.ViewUsuarioTitle_usuaCuenta}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaContrasena}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaContrasena}" title="#{myBundle.ViewUsuarioTitle_usuaContrasena}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaNombre}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaNombre}" title="#{myBundle.ViewUsuarioTitle_usuaNombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaApellido}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaApellido}" title="#{myBundle.ViewUsuarioTitle_usuaApellido}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaTelefono}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaTelefono}" title="#{myBundle.ViewUsuarioTitle_usuaTelefono}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaTelefono2}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaTelefono2}" title="#{myBundle.ViewUsuarioTitle_usuaTelefono2}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaEmail}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaEmail}" title="#{myBundle.ViewUsuarioTitle_usuaEmail}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_usuaVigente}"/>
+                        <h:selectBooleanCheckbox id="usuaVigente" value="#{usuarioController.selected.usuaVigente}" title="#{myBundle.EditUsuarioTitle_usuaVigente}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_usuaVigente}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="UsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DetallecotizacionEditDlg" widgetVar="DetallecotizacionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDetallecotizacionTitle}" closeOnEscape="true">
+
+            <h:form id="DetallecotizacionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{detallecotizacionController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDetallecotizacionLabel_idDetallecotizacion}" for="idDetallecotizacion" />
+                        <h:outputText id="idDetallecotizacion" value="#{detallecotizacionController.selected.idDetallecotizacion}" />
+
+                        <p:outputLabel value="#{myBundle.EditDetallecotizacionLabel_decoCantidad}" for="decoCantidad" />
+                        <p:inputText id="decoCantidad" value="#{detallecotizacionController.selected.decoCantidad}" title="#{myBundle.EditDetallecotizacionTitle_decoCantidad}" required="true" requiredMessage="#{myBundle.EditDetallecotizacionRequiredMessage_decoCantidad}"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallecotizacionLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{detallecotizacionController.selected.idProducto}" required="true" requiredMessage="#{myBundle.EditDetallecotizacionRequiredMessage_idProducto}" converter="productoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.items}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"
+                                           itemLabel="#{idProductoItem.prodDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.EditDetallecotizacionLabel_idCotizacion}" for="idCotizacion" />
+                        <p:selectOneMenu id="idCotizacion" value="#{detallecotizacionController.selected.idCotizacion}" required="true" requiredMessage="#{myBundle.EditDetallecotizacionRequiredMessage_idCotizacion}" converter="cotizacionConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cotizacionController.items}"
+                                           var="idCotizacionItem"
+                                           itemValue="#{idCotizacionItem}"
+                                           itemLabel="#{idCotizacionItem.idCotizacion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallecotizacionController.save}" value="#{myBundle.Save}" update="display,:DetallecotizacionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,DetallecotizacionEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="DetallecotizacionEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

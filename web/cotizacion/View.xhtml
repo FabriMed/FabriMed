@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CotizacionViewDlg" widgetVar="CotizacionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCotizacionTitle}" closeOnEscape="true">
+
+            <h:form id="CotizacionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cotizacionController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_idCotizacion}"/>
+                        <h:outputText value="#{cotizacionController.selected.idCotizacion}" title="#{myBundle.ViewCotizacionTitle_idCotizacion}"/>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_cotiNombre}"/>
+                        <h:outputText value="#{cotizacionController.selected.cotiNombre}" title="#{myBundle.ViewCotizacionTitle_cotiNombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_cotiApellido}"/>
+                        <h:outputText value="#{cotizacionController.selected.cotiApellido}" title="#{myBundle.ViewCotizacionTitle_cotiApellido}"/>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_cotiEmail}"/>
+                        <h:outputText value="#{cotizacionController.selected.cotiEmail}" title="#{myBundle.ViewCotizacionTitle_cotiEmail}"/>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_cotiTelefono}"/>
+                        <h:outputText value="#{cotizacionController.selected.cotiTelefono}" title="#{myBundle.ViewCotizacionTitle_cotiTelefono}"/>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_cotiObservaciones}"/>
+                        <h:outputText value="#{cotizacionController.selected.cotiObservaciones}" title="#{myBundle.ViewCotizacionTitle_cotiObservaciones}"/>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_cotiEspecificaciones}"/>
+                        <h:outputText value="#{cotizacionController.selected.cotiEspecificaciones}" title="#{myBundle.ViewCotizacionTitle_cotiEspecificaciones}"/>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_cotiFecha}"/>
+                        <h:outputText value="#{cotizacionController.selected.cotiFecha}" title="#{myBundle.ViewCotizacionTitle_cotiFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCotizacionLabel_idMotivo}"/>
+                        <h:outputText value="#{cotizacionController.selected.idMotivo.idMotivo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="CotizacionViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

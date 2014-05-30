@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CotizacionCreateDlg" widgetVar="CotizacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateCotizacionTitle}" closeOnEscape="true">
+
+            <h:form id="CotizacionCreateForm">
+
+                <h:panelGroup id="display" rendered="#{cotizacionController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_cotiNombre}" for="cotiNombre" />
+                        <p:inputText id="cotiNombre" value="#{cotizacionController.selected.cotiNombre}" title="#{myBundle.CreateCotizacionTitle_cotiNombre}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_cotiApellido}" for="cotiApellido" />
+                        <p:inputText id="cotiApellido" value="#{cotizacionController.selected.cotiApellido}" title="#{myBundle.CreateCotizacionTitle_cotiApellido}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_cotiEmail}" for="cotiEmail" />
+                        <p:inputText id="cotiEmail" value="#{cotizacionController.selected.cotiEmail}" title="#{myBundle.CreateCotizacionTitle_cotiEmail}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_cotiTelefono}" for="cotiTelefono" />
+                        <p:inputText id="cotiTelefono" value="#{cotizacionController.selected.cotiTelefono}" title="#{myBundle.CreateCotizacionTitle_cotiTelefono}" size="25" maxlength="25"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_cotiObservaciones}" for="cotiObservaciones" />
+                        <p:inputTextarea rows="4" cols="30" id="cotiObservaciones" value="#{cotizacionController.selected.cotiObservaciones}" title="#{myBundle.CreateCotizacionTitle_cotiObservaciones}" />
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_cotiEspecificaciones}" for="cotiEspecificaciones" />
+                        <p:inputTextarea rows="4" cols="30" id="cotiEspecificaciones" value="#{cotizacionController.selected.cotiEspecificaciones}" title="#{myBundle.CreateCotizacionTitle_cotiEspecificaciones}" />
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_cotiFecha}" for="cotiFecha" />
+                        <p:calendar id="cotiFecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{cotizacionController.selected.cotiFecha}" title="#{myBundle.CreateCotizacionTitle_cotiFecha}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateCotizacionLabel_idMotivo}" for="idMotivo" />
+                        <p:selectOneMenu id="idMotivo" value="#{cotizacionController.selected.idMotivo}"  converter="motivoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{motivoController.items}"
+                                           var="idMotivoItem"
+                                           itemValue="#{idMotivoItem}"
+                                           itemLabel="#{idMotivoItem.idMotivo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cotizacionController.saveNew}" value="#{myBundle.Save}" update="display,:CotizacionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,CotizacionCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="CotizacionCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CategoriaEditDlg" widgetVar="CategoriaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCategoriaTitle}" closeOnEscape="true">
+
+            <h:form id="CategoriaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{categoriaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCategoriaLabel_idCategoria}" for="idCategoria" />
+                        <h:outputText id="idCategoria" value="#{categoriaController.selected.idCategoria}" />
+
+                        <p:outputLabel value="#{myBundle.EditCategoriaLabel_cateNombre}" for="cateNombre" />
+                        <p:inputText id="cateNombre" value="#{categoriaController.selected.cateNombre}" title="#{myBundle.EditCategoriaTitle_cateNombre}" required="true" requiredMessage="#{myBundle.EditCategoriaRequiredMessage_cateNombre}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditCategoriaLabel_cateUrl}" for="cateUrl" />
+                        <p:inputText id="cateUrl" value="#{categoriaController.selected.cateUrl}" title="#{myBundle.EditCategoriaTitle_cateUrl}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.EditCategoriaLabel_cateVigente}" for="cateVigente" />
+                        <p:selectBooleanCheckbox id="cateVigente" value="#{categoriaController.selected.cateVigente}" required="true" requiredMessage="#{myBundle.EditCategoriaRequiredMessage_cateVigente}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{categoriaController.save}" value="#{myBundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,CategoriaEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="CategoriaEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

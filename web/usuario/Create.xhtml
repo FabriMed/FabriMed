@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaCuenta}" for="usuaCuenta" />
+                        <p:inputText id="usuaCuenta" value="#{usuarioController.selected.usuaCuenta}" title="#{myBundle.CreateUsuarioTitle_usuaCuenta}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_usuaCuenta}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaContrasena}" for="usuaContrasena" />
+                        <p:inputText id="usuaContrasena" value="#{usuarioController.selected.usuaContrasena}" title="#{myBundle.CreateUsuarioTitle_usuaContrasena}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_usuaContrasena}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaNombre}" for="usuaNombre" />
+                        <p:inputText id="usuaNombre" value="#{usuarioController.selected.usuaNombre}" title="#{myBundle.CreateUsuarioTitle_usuaNombre}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_usuaNombre}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaApellido}" for="usuaApellido" />
+                        <p:inputText id="usuaApellido" value="#{usuarioController.selected.usuaApellido}" title="#{myBundle.CreateUsuarioTitle_usuaApellido}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_usuaApellido}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaTelefono}" for="usuaTelefono" />
+                        <p:inputText id="usuaTelefono" value="#{usuarioController.selected.usuaTelefono}" title="#{myBundle.CreateUsuarioTitle_usuaTelefono}" size="25" maxlength="25"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaTelefono2}" for="usuaTelefono2" />
+                        <p:inputText id="usuaTelefono2" value="#{usuarioController.selected.usuaTelefono2}" title="#{myBundle.CreateUsuarioTitle_usuaTelefono2}" size="25" maxlength="25"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaEmail}" for="usuaEmail" />
+                        <p:inputText id="usuaEmail" value="#{usuarioController.selected.usuaEmail}" title="#{myBundle.CreateUsuarioTitle_usuaEmail}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_usuaEmail}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_usuaVigente}" for="usuaVigente" />
+                        <p:selectBooleanCheckbox id="usuaVigente" value="#{usuarioController.selected.usuaVigente}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_usuaVigente}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,UsuarioCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

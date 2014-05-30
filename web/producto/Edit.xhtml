@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ProductoEditDlg" widgetVar="ProductoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditProductoTitle}" closeOnEscape="true">
+
+            <h:form id="ProductoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{productoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditProductoLabel_idProducto}" for="idProducto" />
+                        <h:outputText id="idProducto" value="#{productoController.selected.idProducto}" />
+
+                        <p:outputLabel value="#{myBundle.EditProductoLabel_prodCodigo}" for="prodCodigo" />
+                        <p:inputText id="prodCodigo" value="#{productoController.selected.prodCodigo}" title="#{myBundle.EditProductoTitle_prodCodigo}" required="true" requiredMessage="#{myBundle.EditProductoRequiredMessage_prodCodigo}"/>
+
+                        <p:outputLabel value="#{myBundle.EditProductoLabel_prodNombre}" for="prodNombre" />
+                        <p:inputText id="prodNombre" value="#{productoController.selected.prodNombre}" title="#{myBundle.EditProductoTitle_prodNombre}" required="true" requiredMessage="#{myBundle.EditProductoRequiredMessage_prodNombre}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.EditProductoLabel_prodDescripcion}" for="prodDescripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="prodDescripcion" value="#{productoController.selected.prodDescripcion}" title="#{myBundle.EditProductoTitle_prodDescripcion}" />
+
+                        <p:outputLabel value="#{myBundle.EditProductoLabel_prodMedidas}" for="prodMedidas" />
+                        <p:inputText id="prodMedidas" value="#{productoController.selected.prodMedidas}" title="#{myBundle.EditProductoTitle_prodMedidas}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.EditProductoLabel_prodUrl}" for="prodUrl" />
+                        <p:inputText id="prodUrl" value="#{productoController.selected.prodUrl}" title="#{myBundle.EditProductoTitle_prodUrl}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{myBundle.EditProductoLabel_prodVigente}" for="prodVigente" />
+                        <p:selectBooleanCheckbox id="prodVigente" value="#{productoController.selected.prodVigente}" required="true" requiredMessage="#{myBundle.EditProductoRequiredMessage_prodVigente}"/>
+
+                        <p:outputLabel value="#{myBundle.EditProductoLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{productoController.selected.idCategoria}" required="true" requiredMessage="#{myBundle.EditProductoRequiredMessage_idCategoria}" converter="categoriaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoriaController.items}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"
+                                           itemLabel="#{idCategoriaItem.idCategoria.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productoController.save}" value="#{myBundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ProductoEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="ProductoEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

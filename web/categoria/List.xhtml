@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CategoriaListForm">
+
+        <p:panel header="#{myBundle.ListCategoriaTitle}">
+            <p:contextMenu id="CategoriaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CategoriaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CategoriaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CategoriaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CategoriaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CategoriaMenuItem_productoList}" icon="ui-icon-search"  action="#{categoriaController.navigateProductoList}" disabled="#{empty categoriaController.selected.productoList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{categoriaController.items}"
+                         var="item"
+                         rowKey="#{item.idCategoria}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{categoriaController.selected}">
+
+                <p:ajax event="rowSelect"   update=":CategoriaListForm:createButton :CategoriaListForm:viewButton :CategoriaListForm:editButton :CategoriaListForm:deleteButton :CategoriaListForm:CategoriaDataTableContextMenu" listener="#{categoriaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":CategoriaListForm:createButton :CategoriaListForm:viewButton :CategoriaListForm:editButton :CategoriaListForm:deleteButton :CategoriaListForm:CategoriaDataTableContextMenu" listener="#{categoriaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CategoriaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idCategoria}" filterBy="#{item.idCategoria}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCategoriaTitle_idCategoria}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCategoria}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cateNombre}" filterBy="#{item.cateNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCategoriaTitle_cateNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cateNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cateUrl}" filterBy="#{item.cateUrl}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCategoriaTitle_cateUrl}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cateUrl}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cateVigente}" filterBy="#{item.cateVigente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCategoriaTitle_cateVigente}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="cateVigente" value="#{item.cateVigente}" title="#{myBundle.EditCategoriaTitle_cateVigente}" required="true" requiredMessage="#{myBundle.EditCategoriaRequiredMessage_cateVigente}" disabled="true"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{categoriaController.prepareCreate}" update=":CategoriaCreateForm" oncomplete="CategoriaCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CategoriaViewForm" oncomplete="CategoriaViewDialog.show()" disabled="#{empty categoriaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CategoriaEditForm" oncomplete="CategoriaEditDialog.show()" disabled="#{empty categoriaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{categoriaController.delete}" update=":growl,datalist" disabled="#{empty categoriaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

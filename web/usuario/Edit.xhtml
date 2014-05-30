@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditUsuarioLabel_idUsuario}" for="idUsuario" />
+                        <h:outputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" />
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaCuenta}" for="usuaCuenta" />
+                        <p:inputText id="usuaCuenta" value="#{usuarioController.selected.usuaCuenta}" title="#{myBundle.EditUsuarioTitle_usuaCuenta}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_usuaCuenta}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaContrasena}" for="usuaContrasena" />
+                        <p:inputText id="usuaContrasena" value="#{usuarioController.selected.usuaContrasena}" title="#{myBundle.EditUsuarioTitle_usuaContrasena}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_usuaContrasena}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaNombre}" for="usuaNombre" />
+                        <p:inputText id="usuaNombre" value="#{usuarioController.selected.usuaNombre}" title="#{myBundle.EditUsuarioTitle_usuaNombre}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_usuaNombre}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaApellido}" for="usuaApellido" />
+                        <p:inputText id="usuaApellido" value="#{usuarioController.selected.usuaApellido}" title="#{myBundle.EditUsuarioTitle_usuaApellido}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_usuaApellido}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaTelefono}" for="usuaTelefono" />
+                        <p:inputText id="usuaTelefono" value="#{usuarioController.selected.usuaTelefono}" title="#{myBundle.EditUsuarioTitle_usuaTelefono}" size="25" maxlength="25"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaTelefono2}" for="usuaTelefono2" />
+                        <p:inputText id="usuaTelefono2" value="#{usuarioController.selected.usuaTelefono2}" title="#{myBundle.EditUsuarioTitle_usuaTelefono2}" size="25" maxlength="25"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaEmail}" for="usuaEmail" />
+                        <p:inputText id="usuaEmail" value="#{usuarioController.selected.usuaEmail}" title="#{myBundle.EditUsuarioTitle_usuaEmail}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_usuaEmail}" size="128" maxlength="128"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_usuaVigente}" for="usuaVigente" />
+                        <p:selectBooleanCheckbox id="usuaVigente" value="#{usuarioController.selected.usuaVigente}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_usuaVigente}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.save}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,UsuarioEditDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

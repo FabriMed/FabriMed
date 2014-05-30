@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CategoriaViewDlg" widgetVar="CategoriaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCategoriaTitle}" closeOnEscape="true">
+
+            <h:form id="CategoriaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{categoriaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_idCategoria}"/>
+                        <h:outputText value="#{categoriaController.selected.idCategoria}" title="#{myBundle.ViewCategoriaTitle_idCategoria}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_cateNombre}"/>
+                        <h:outputText value="#{categoriaController.selected.cateNombre}" title="#{myBundle.ViewCategoriaTitle_cateNombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_cateUrl}"/>
+                        <h:outputText value="#{categoriaController.selected.cateUrl}" title="#{myBundle.ViewCategoriaTitle_cateUrl}"/>
+
+                        <h:outputText value="#{myBundle.ViewCategoriaLabel_cateVigente}"/>
+                        <h:selectBooleanCheckbox id="cateVigente" value="#{categoriaController.selected.cateVigente}" title="#{myBundle.EditCategoriaTitle_cateVigente}" required="true" requiredMessage="#{myBundle.EditCategoriaRequiredMessage_cateVigente}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="CategoriaViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

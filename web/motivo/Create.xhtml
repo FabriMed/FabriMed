@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MotivoCreateDlg" widgetVar="MotivoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMotivoTitle}" closeOnEscape="true">
+
+            <h:form id="MotivoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{motivoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMotivoLabel_motiNombre}" for="motiNombre" />
+                        <p:inputTextarea rows="4" cols="30" id="motiNombre" value="#{motivoController.selected.motiNombre}" title="#{myBundle.CreateMotivoTitle_motiNombre}" required="true" requiredMessage="#{myBundle.CreateMotivoRequiredMessage_motiNombre}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateMotivoLabel_motiVigente}" for="motiVigente" />
+                        <p:selectBooleanCheckbox id="motiVigente" value="#{motivoController.selected.motiVigente}" required="true" requiredMessage="#{myBundle.CreateMotivoRequiredMessage_motiVigente}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{motivoController.saveNew}" value="#{myBundle.Save}" update="display,:MotivoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,MotivoCreateDialog);">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="MotivoCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

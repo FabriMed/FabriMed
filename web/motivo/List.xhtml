@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MotivoListForm">
+
+        <p:panel header="#{myBundle.ListMotivoTitle}">
+            <p:contextMenu id="MotivoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MotivoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MotivoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MotivoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MotivoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MotivoMenuItem_cotizacionList}" icon="ui-icon-search"  action="#{motivoController.navigateCotizacionList}" disabled="#{empty motivoController.selected.cotizacionList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{motivoController.items}"
+                         var="item"
+                         rowKey="#{item.idMotivo}"
+                         paginator="true"
+                         rows="5"
+                         rowsPerPageTemplate="5,10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{motivoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":MotivoListForm:createButton :MotivoListForm:viewButton :MotivoListForm:editButton :MotivoListForm:deleteButton :MotivoListForm:MotivoDataTableContextMenu" listener="#{motivoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":MotivoListForm:createButton :MotivoListForm:viewButton :MotivoListForm:editButton :MotivoListForm:deleteButton :MotivoListForm:MotivoDataTableContextMenu" listener="#{motivoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MotivoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idMotivo}" filterBy="#{item.idMotivo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMotivoTitle_idMotivo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idMotivo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.motiNombre}" filterBy="#{item.motiNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMotivoTitle_motiNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.motiNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.motiVigente}" filterBy="#{item.motiVigente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMotivoTitle_motiVigente}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="motiVigente" value="#{item.motiVigente}" title="#{myBundle.EditMotivoTitle_motiVigente}" required="true" requiredMessage="#{myBundle.EditMotivoRequiredMessage_motiVigente}" disabled="true"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{motivoController.prepareCreate}" update=":MotivoCreateForm" oncomplete="MotivoCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MotivoViewForm" oncomplete="MotivoViewDialog.show()" disabled="#{empty motivoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MotivoEditForm" oncomplete="MotivoEditDialog.show()" disabled="#{empty motivoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{motivoController.delete}" update=":growl,datalist" disabled="#{empty motivoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>
