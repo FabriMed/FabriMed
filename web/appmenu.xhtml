@@ -11,12 +11,17 @@
             <p:menubar>
                 <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
                 <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/usuario/index" />
+                    
                     <p:menuitem value="#{myBundle.CategoriaHeading}..." outcome="/categoria/index" />
+                    <p:menuitem value="#{myBundle.ProductoHeading}..." outcome="/producto/index" />
+                    
+                    <p:menuitem value="#{myBundle.MotivoHeading}..." outcome="/motivo/index" />
                     <p:menuitem value="#{myBundle.CotizacionHeading}..." outcome="/cotizacion/index" />
                     <p:menuitem value="#{myBundle.DetallecotizacionHeading}..." outcome="/detallecotizacion/index" />
-                    <p:menuitem value="#{myBundle.MotivoHeading}..." outcome="/motivo/index" />
-                    <p:menuitem value="#{myBundle.ProductoHeading}..." outcome="/producto/index" />
-                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/usuario/index" />
+                    
+                    
+                    
                 </p:submenu>
             </p:menubar>
         </h:form>
