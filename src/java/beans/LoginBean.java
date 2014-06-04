@@ -22,8 +22,8 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-    private String usuaCuenta;
-    private String usuaContrasena;
+    public String usuaCuenta;
+    public String usuaContrasena;
     /**
      * Creates a new instance of LoginBean
      */
