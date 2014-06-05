@@ -40,9 +40,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findByProdCodigo", query = "SELECT p FROM Producto p WHERE p.prodCodigo = :prodCodigo"),
     @NamedQuery(name = "Producto.findByProdNombre", query = "SELECT p FROM Producto p WHERE p.prodNombre = :prodNombre"),
     @NamedQuery(name = "Producto.findByProdMedidas", query = "SELECT p FROM Producto p WHERE p.prodMedidas = :prodMedidas"),
-    @NamedQuery(name = "Producto.findByProdUrl", query = "SELECT p FROM Producto p WHERE p.prodUrl = :prodUrl"),
     @NamedQuery(name = "Producto.findByProdVigente", query = "SELECT p FROM Producto p WHERE p.prodVigente = :prodVigente")})
 public class Producto implements Serializable {
+    @Lob
+    @Column(name = "PROD_URL")
+    private byte[] prodUrl;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
+    private List<Detallecotizacion> detallecotizacionList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,15 +69,10 @@ public class Producto implements Serializable {
     @Size(max = 150)
     @Column(name = "PROD_MEDIDAS")
     private String prodMedidas;
-    @Size(max = 150)
-    @Column(name = "PROD_URL")
-    private String prodUrl;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PROD_VIGENTE")
     private boolean prodVigente;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
-    private List<Detallecotizacion> detallecotizacionList;
     @JoinColumn(name = "ID_CATEGORIA", referencedColumnName = "ID_CATEGORIA")
     @ManyToOne(optional = false)
     private Categoria idCategoria;
@@ -132,11 +131,11 @@ public class Producto implements Serializable {
         this.prodMedidas = prodMedidas;
     }
 
-    public String getProdUrl() {
+    public byte[] getProdUrl() {
         return prodUrl;
     }
 
-    public void setProdUrl(String prodUrl) {
+    public void setProdUrl(byte[] prodUrl) {
         this.prodUrl = prodUrl;
     }
 
@@ -146,15 +145,6 @@ public class Producto implements Serializable {
 
     public void setProdVigente(boolean prodVigente) {
         this.prodVigente = prodVigente;
-    }
-
-    @XmlTransient
-    public List<Detallecotizacion> getDetallecotizacionList() {
-        return detallecotizacionList;
-    }
-
-    public void setDetallecotizacionList(List<Detallecotizacion> detallecotizacionList) {
-        this.detallecotizacionList = detallecotizacionList;
     }
 
     public Categoria getIdCategoria() {
@@ -188,6 +178,16 @@ public class Producto implements Serializable {
     @Override
     public String toString() {
         return "entity.Producto[ idProducto=" + idProducto + " ]";
+    }
+
+
+    @XmlTransient
+    public List<Detallecotizacion> getDetallecotizacionList() {
+        return detallecotizacionList;
+    }
+
+    public void setDetallecotizacionList(List<Detallecotizacion> detallecotizacionList) {
+        this.detallecotizacionList = detallecotizacionList;
     }
     
 }

@@ -1,20 +1,23 @@
 package beans;
 
-import controller.AbstractFacade;
 import beans.util.JsfUtil;
+import beans.util.MyUtil;
+import controller.AbstractFacade;
+import entity.Producto;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
-
-import java.util.ResourceBundle;
-import javax.ejb.EJBException;
-import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  * Represents an abstract shell of to be used as JSF Controller to be used in
@@ -128,7 +131,24 @@ public abstract class AbstractController<T> implements Serializable {
             items = null; // Invalidate list of items to trigger re-query.
         }
     }
-
+    /**
+     * Metodo para subir la imagen al servidor
+     * @param event
+     */
+    public void subirImagen(FileUploadEvent event){
+        FacesMessage mensaje = new FacesMessage();
+        try {
+            Producto producto = new Producto();
+            producto.setProdUrl(event.getFile().getContents());
+            String imagenProducto = MyUtil.guardarImagenEnFicheroTemporal(producto.getProdUrl(),event.getFile().getFileName());
+            mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
+            mensaje.setSummary("Imagen Subida exitosamente");
+        } catch (Exception e) {
+            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensaje.setSummary("Problemas al subir la iamgen");
+        }
+        FacesContext.getCurrentInstance().addMessage("Mensaje", mensaje);
+    }
     /**
      * Remove an existing item from the data layer.
      *

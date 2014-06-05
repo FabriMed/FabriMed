@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition>
+
+            <ui:define name="body">
+                <p:dialog id="ProductoImagen" widgetVar="ProductoImagen" 
+                          modal="true" resizable="false" appendTo="@(body)" 
+                          header="Cargar Imagen" closeOnEscape="true">
+                    
+                <h:form id="imageProducto" enctype="multipart/form-data">   
+                    <h:panelGrid border="0" columns="1" cellspacing="5" width="100%">   
+                        <p:panel styleClass="editorFoto"> 
+                            <p:imageCropper value="#{editorUsuarioFoto.croppeFoto}"
+                                            image="resources/images/background.png"
+                                            rendered="#{editorUsuarioFoto.imageTemp!=null}"
+                                            initialCoords="0,0,140,150"
+                                            minSize="70,75"
+                                            maxSize="280,300"
+                                            aspectRatio="0.9"/>
+                            <p:fileUpload fileUploadListener="#{editorUsuarioFoto.uploadFile}"
+                                      rendered="#{editorUsuarioFoto.imageTemp==null}"
+                                      mode="advanced"
+                                      label="Seleccione Foto (max.500Kb)"
+                                      auto="true"
+                                      update="formFoto"
+                                      sizeLimit="500000"
+                                      allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"/>
+                        </p:panel>   
+                    </h:panelGrid> 
+                </h:form>
+                
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -19,18 +19,26 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.xhtml</welcome-file>
+        <welcome-file>producto/index.xhtml</welcome-file>
     </welcome-file-list>
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>start</param-value>
     </context-param>
-    <filter> 
-        <filter-name>PrimeFaces FileUpload Filter</filter-name> 
-        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class> 
-    </filter> 
-    <filter-mapping> 
-        <filter-name>PrimeFaces FileUpload Filter</filter-name> 
-        <servlet-name>Faces Servlet</servlet-name> 
+    <filter>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+        <init-param>
+            <param-name>thresholdSize</param-name>
+            <param-value>510000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>uploadDirectory</param-name>
+            <param-value>C:\Users\Emanuel\Downloads\Imagenes</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
 </web-app>

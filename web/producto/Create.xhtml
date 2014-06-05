@@ -8,9 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="ProductoCreateDlg" widgetVar="ProductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateProductoTitle}" closeOnEscape="true">
+        <p:dialog id="ProductoCreateDlg" widgetVar="ProductoCreateDialog" 
+                  modal="true" resizable="false" appendTo="@(body)" 
+                  header="#{myBundle.CreateProductoTitle}" closeOnEscape="true">
 
-            <h:form id="ProductoCreateForm">
+            <h:form id="ProductoCreateForm" enctype="multipart/form-data">
 
                 <h:panelGroup id="display" rendered="#{productoController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
@@ -32,7 +34,22 @@
 
                         <p:outputLabel value="#{myBundle.CreateProductoLabel_prodVigente}" for="prodVigente" />
                         <p:selectBooleanCheckbox id="prodVigente" value="#{productoController.selected.prodVigente}" required="true" requiredMessage="#{myBundle.CreateProductoRequiredMessage_prodVigente}"/>
-
+                            
+                        <p:outputLabel value="#{myBundle.CreateProductoLabel_prodVigente}" for="prodVigente" />
+                        <h:panelGroup>
+                            <p:fileUpload id="filImaPro"
+                                          fileUploadListener="#{productoController.uploadFile}"
+                                      mode="advanced"
+                                      label="Seleccione Foto (max.500 Kbs)"
+                                      cancelLabel="Cancelar"
+                                      uploadLabel="Subir Imagen"
+                                      sizeLimit="510000"
+                                      update="graImaPro"
+                                      allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"/>
+                            <p:graphicImage id="graImaPro" value="#{productoController.imageTemp.toString}" 
+                                            width="150" height="120"/>
+                        </h:panelGroup>
+                        
                         <p:outputLabel value="#{myBundle.CreateProductoLabel_idCategoria}" for="idCategoria" />
                         <p:selectOneMenu id="idCategoria" value="#{productoController.selected.idCategoria}" required="true" requiredMessage="#{myBundle.CreateProductoRequiredMessage_idCategoria}" converter="categoriaConverter">
                             <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
@@ -47,14 +64,14 @@
                     <p:commandButton actionListener="#{productoController.saveNew}" value="#{myBundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ProductoCreateDialog);">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
-
                     <p:commandButton value="#{myBundle.Cancel}" onclick="ProductoCreateDialog.hide()"/>
+                    
                 </h:panelGroup>
 
             </h:form>
 
         </p:dialog>
-
+        <ui:include src="/producto/Image.xhtml"/>
     </ui:composition>
 
 </html>
