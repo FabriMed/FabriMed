@@ -37,7 +37,7 @@
                         <h:selectBooleanCheckbox id="prodVigente" value="#{productoController.selected.prodVigente}" title="#{myBundle.EditProductoTitle_prodVigente}" required="true" requiredMessage="#{myBundle.EditProductoRequiredMessage_prodVigente}" disabled="true"/>
 
                         <h:outputText value="#{myBundle.ViewProductoLabel_idCategoria}"/>
-                        <h:outputText value="#{productoController.selected.idCategoria.idCategoria}"/>
+                        <h:outputText value="#{productoController.selected.idCategoria.cateNombre}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="ProductoViewDialog.hide()"/>
                 </h:panelGroup>

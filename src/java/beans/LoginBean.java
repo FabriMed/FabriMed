@@ -47,7 +47,7 @@ public class LoginBean implements Serializable {
     }
     
     public void login(ActionEvent actionEvent){
-        System.out.println("Llegue a Login");
+
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         boolean loggedIn = false;
